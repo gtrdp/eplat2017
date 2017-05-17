@@ -2,7 +2,7 @@ E-Plat LogBook May 2017
 =======================
 
 May #3
-----
+------
 - **Mon May 15 10:07:12 WIB 2017**
 	- Kick off meeting.
 
@@ -11,3 +11,6 @@ May #3
 	- Installing UniFi router (need ethernet cable).
 	- Setting up Raspi (need keyboard).
 	- Setting up the desktop computer: resetting password etc.
+
+- **Rab Mei 17 12:06:07 WIB 2017**
+ - Installing Raspbian (cancelled).
