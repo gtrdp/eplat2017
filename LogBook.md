@@ -17,3 +17,14 @@ May #3
 - **Jum Mei 19 09:21:42 WIB 2017**
 	- Setting up unifi.
 		- AP cannot be detected.
+
+May #4
+------
+- **Sen Mei 22 10:11:18 WIB 2017**
+	- UniFi AP is now discoverable (solution: the router needs upgrade).
+	- Raspberrypi default password is `raspberry`.
+	- Running web server using Python in raspberry pi
+		- https://www.raspberrypi.org/learning/python-web-server-with-flask/worksheet/
+	- Return `json` output in Flask
+		- http://stackoverflow.com/questions/13081532/return-json-response-from-flask-view
+		
