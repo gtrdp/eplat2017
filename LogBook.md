@@ -27,4 +27,12 @@ May #4
 		- https://www.raspberrypi.org/learning/python-web-server-with-flask/worksheet/
 	- Return `json` output in Flask
 		- http://stackoverflow.com/questions/13081532/return-json-response-from-flask-view
-		
+- **Sel Mei 23 08:50:25 WIB 2017**
+	- SKK Migas.
+- **Rab Mei 24 08:50:25 WIB 2017**
+	- Progress report DSSDI.
+- **Kam Mei 25 08:50:25 WIB 2017**
+	- Ascension Day.
+- **Jum Mei 26 08:50:25 WIB 2017**
+	- Installing flask.
+	- https://stackoverflow.com/questions/32550487/how-to-print-from-flask-app-route-to-python-console
