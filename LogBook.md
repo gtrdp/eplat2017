@@ -36,5 +36,5 @@ May #4
 - **Jum Mei 26 08:50:25 WIB 2017**
 	- Installing flask.
 	- https://stackoverflow.com/questions/32550487/how-to-print-from-flask-app-route-to-python-console
-	- Setting up remote media mounting
+	- Setting up remote media mounting (SSHFS)
 	- Setting up PyCharm and Android Studio
