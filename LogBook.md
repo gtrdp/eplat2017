@@ -38,3 +38,17 @@ May #4
 	- https://stackoverflow.com/questions/32550487/how-to-print-from-flask-app-route-to-python-console
 	- Setting up remote media mounting (SSHFS)
 	- Setting up PyCharm and Android Studio
+
+May #5
+------
+- **Sen Mei 29 08:41:17 WIB 2017**
+	- Resizing hard drive.
+- **Sel Mei 30 10:08:47 WIB 2017**
+	- Setting up the reserver (raspi) to read JSON input.
+	- JSON test data:
+		```
+		{"id": 12345, "lat":-7.797068, "long":-7.797068, 110.370529, "direction": "S"}
+		```
+	- The server now can read JSON input from HTTP POST request.
+	- Map View in Android https://gist.github.com/joshdholtz/4522551
+	- Get location on tap https://stackoverflow.com/questions/15362281/how-do-i-get-the-coordinates-of-a-map-on-tap-with-mapfragment-not-mapview
