@@ -52,3 +52,8 @@ May #5
 	- The server now can read JSON input from HTTP POST request.
 	- Map View in Android https://gist.github.com/joshdholtz/4522551
 	- Get location on tap https://stackoverflow.com/questions/15362281/how-do-i-get-the-coordinates-of-a-map-on-tap-with-mapfragment-not-mapview
+- **Kam Jun  1 08:52:37 WIB 2017**
+	- The birth of Indonesian Five Pillars.
+- **Jum Jun  2 08:52:37 WIB 2017**
+	- Resizing the harddrive again.
+	- In the crossroad, give direction code instead of directions.
