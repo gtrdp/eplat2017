@@ -57,15 +57,25 @@
                     android:layout_height="wrap_content"
                     android:text="Maps" />
 
-                <com.google.android.gms.maps.MapView android:id="@+id/mapview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pintu Keluar Ke-" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="2" />
+
+                <Button
+                    android:id="@+id/btnStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Start" />
             </LinearLayout>
         </ScrollView>
 
