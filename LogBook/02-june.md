@@ -38,3 +38,10 @@ June #2
     - http://bisniskeuangan.kompas.com/read/2017/05/23/235953626/pemerintah.bikin.aplikasi.berisi.informasi.yang.dibutuhkan.pemudik
     - http://www.mantapps.co.id/news/tips-tricks/3-aplikasi-yang-diperlukan-saat-mudik/
     - http://www.solopos.com/2016/06/30/aplikasi-smartphone-8-aplikasi-penting-untuk-bekal-mudik-lebaran-733789
+- **Rab Jun 14 08:57:45 WIB 2017**
+  - Continue writing proposals.
+    - http://www.businessinsider.com/how-google-maps-knows-about-traffic-2015-11?IR=T&r=US&IR=T
+    - http://electronics.howstuffworks.com/how-does-google-maps-predict-traffic.htm
+    - https://www.waze.com/about/dev
+    - https://developers.google.com/maps/documentation/javascript/trafficlayer
+    - https://msdn.microsoft.com/en-us/library/hh441725
