@@ -15,3 +15,18 @@ July #1
 		- https://pcsclite.alioth.debian.org/ccid/shouldwork.html#0x076B0x5427
 		- https://pcsclite.alioth.debian.org/ccid/readers/HID_OMNIKEY_5427_CK.txt
 		- http://smalltechproblems.blogspot.co.id/2013/04/raspberry-pi-checkin-devices.html
+- **Thu Jul  6 08:24:22 WIB 2017**
+	- Continue working on the smart card reader.
+	- http://www.utilities-online.info/articles/GettingStarted-With-SmartCard-In-Linux/
+	- Done. First run `pcscd` daemon as a background process. Then run this command:
+
+			pcsc_scan
+
+	- TODO: write a program to read the card automatically.
+		- https://pyscard.sourceforge.io/
+		- https://ludovicrousseau.blogspot.co.id/2010/04/pcsc-sample-in-python.html?m=1
+		- https://pyscard.sourceforge.io/pyscard-framework.html#framework-samples
+	- E-KTP data is protected, to read a key is necessary.
+		- http://nisura.blogspot.co.id/2013/01/mencoba-tes-baca-chip-e-ktp-sim-dki-dan.html
+	- https://play.google.com/store/apps/details?id=sybond.poc.ektpread
+	- http://www.datascrip.com/read/product_file_1735577b45dac15ca.pdf
