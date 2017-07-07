@@ -30,3 +30,6 @@ July #1
 		- http://nisura.blogspot.co.id/2013/01/mencoba-tes-baca-chip-e-ktp-sim-dki-dan.html
 	- https://play.google.com/store/apps/details?id=sybond.poc.ektpread
 	- http://www.datascrip.com/read/product_file_1735577b45dac15ca.pdf
+- **Thu Jul  6 10:55:02 WIB 2017**
+	- Troubleshooting Mas Alam's PC.
+	- Managing the ITS website.
