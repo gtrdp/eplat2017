@@ -1,11 +1,14 @@
 from flask import Flask
 from flask import request
+from flask import Markup
+from flask import render_template
 import logging
 
 app = Flask(__name__)
 # set the reporting error only
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
+# app.debug = True
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -14,7 +17,8 @@ def index():
         return 'Processing the input...'
     else:
         print("someone access the raspberry in GET method!!")
-        return 'Hello world! Eplat 2017!'
+        return render_template("map.html")
+        # return "hello"
 
 
 

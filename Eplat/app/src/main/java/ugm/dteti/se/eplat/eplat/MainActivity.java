@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
@@ -22,31 +26,72 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    EditText editAdress;
+    EditText editDeviceId;
+
+    String deviceId, lat, lon, direction, serverAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        editAdress = (EditText) findViewById(R.id.edtServerAddress);
+        editDeviceId = (EditText) findViewById(R.id.edtDeviceId);
+
+        Spinner spinnerDirection = (Spinner) findViewById(R.id.spinnerDirection);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.direction_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDirection.setAdapter(adapter);
+        spinnerDirection.setOnItemSelectedListener(this);
+
+        deviceId = editDeviceId.getText().toString();
+        serverAddress = "http://" + editAdress.getText().toString() + ":5000";
+        lat = "-7.797068";
+        lon = "110.370529";
+
         Button btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Sending the data!", Toast.LENGTH_SHORT).show();
-
-                new PostJSON("http://10.42.10.248:5000").execute();
+                getParameters();
+                new PostJSON(serverAddress, deviceId, lat, lon, direction).execute();
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        direction = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void getParameters() {
+        deviceId = editDeviceId.getText().toString();
+        serverAddress = "http://" + editAdress.getText().toString() + ":5000";
+        lat = "-7.797068";
+        lon = "110.370529";
     }
 }
 
 class PostJSON extends AsyncTask<String, Void, String> {
 
-    private String uri;
+    private String uri, deviceId, lat, lon, dir;
 
-    public PostJSON(String u) {
+    public PostJSON(String u, String devId, String la, String lo, String d) {
         uri = u;
+        deviceId = devId;
+        lat = la;
+        lon = lo;
+        dir = d;
     }
 
     @Override
@@ -58,10 +103,10 @@ class PostJSON extends AsyncTask<String, Void, String> {
     private String execute() {
         // creates a JSON object with the below
         Map<String, String> vehicle = new HashMap<>();
-        vehicle.put("id", "12345");
-        vehicle.put("lat", "-7.797068");
-        vehicle.put("long", "110.370529");
-        vehicle.put("dir", "S");
+        vehicle.put("id", deviceId);
+        vehicle.put("lat", lat);
+        vehicle.put("long", lon);
+        vehicle.put("dir", dir);
 
         String json = new GsonBuilder().create().toJson(vehicle, Map.class);
 
@@ -80,7 +125,7 @@ class PostJSON extends AsyncTask<String, Void, String> {
             System.out.println("Call successful");
             //return new DefaultHttpClient().execute(httpPost);
             // Execute HTTP Post Request
-            ResponseHandler<String> responseHandler=new BasicResponseHandler();
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
             return httpclient.execute(httpPost, responseHandler);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

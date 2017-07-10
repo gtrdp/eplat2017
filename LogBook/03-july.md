@@ -30,6 +30,15 @@ July #1
 		- http://nisura.blogspot.co.id/2013/01/mencoba-tes-baca-chip-e-ktp-sim-dki-dan.html
 	- https://play.google.com/store/apps/details?id=sybond.poc.ektpread
 	- http://www.datascrip.com/read/product_file_1735577b45dac15ca.pdf
-- **Thu Jul  6 10:55:02 WIB 2017**
+- **Fri Jul  6 10:55:02 WIB 2017**
 	- Troubleshooting Mas Alam's PC.
 	- Managing the ITS website.
+
+July #2
+-------
+- **Mon Jul 10 08:58:09 WIB 2017**
+	- Setting up Ubiquiti outoor (non 5GHz).
+	- Working on the android smart traffic light communication.
+		- Mobile apps parametrs now working.
+		- Web app showing the mapp is now on progress: flask by default look the html in the templates page.
+		- Maps template is now working.

@@ -24,18 +24,32 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/txtDeviceId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Device Id" />
+
+                <EditText
+                    android:id="@+id/edtDeviceId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="12345" />
+
+                <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Server Address" />
 
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/edtServerAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="10.42.10.248" />
+                    android:text="10.42.10.211" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -44,7 +58,7 @@
                     android:text="Time Interval" />
 
                 <EditText
-                    android:id="@+id/editText4"
+                    android:id="@+id/edtTimeInterval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -61,15 +75,12 @@
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pintu Keluar Ke-" />
+                    android:text="Direction" />
 
-                <EditText
-                    android:id="@+id/editText"
+                <Spinner
+                    android:id="@+id/spinnerDirection"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="2" />
+                    android:layout_height="wrap_content" />
 
                 <Button
                     android:id="@+id/btnStart"
