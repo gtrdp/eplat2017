@@ -23,13 +23,55 @@
     <script>
       var map;
       function initMap() {
+        var myLatLng = {lat: -7.762007, lng: 110.369383};
+
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+          center: myLatLng,
+          zoom: 17
         });
+
+        setMarkers(map);
+      }
+
+      var trafficLights = [
+        ['North', -7.761583, 110.369335, 0],
+        ['East', -7.762083, 110.369743, 0],
+        ['South', -7.762370, 110.369367, 0],
+        ['West', -7.761998, 110.368809, 2]
+      ];
+
+      function setMarkers(map) {
+        var lights = [
+            'http://maps.google.com/mapfiles/kml/paddle/stop-lv.png', // red
+            'http://maps.google.com/mapfiles/kml/paddle/pause-lv.png', // yellow
+            'http://maps.google.com/mapfiles/kml/paddle/go-lv.png' // green
+        ];
+
+        for (var i = 0; i < trafficLights.length; i++) {
+          var trafficLight = trafficLights[i];
+          var marker = new google.maps.Marker({
+            position: {lat: trafficLight[1], lng: trafficLight[2]},
+            map: map,
+            icon: lights[trafficLight[3]],
+            title: trafficLight[0]
+          });
+        }
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5Eggmq09GXmcAK8NUVHJiUWyBTYeBW3I&callback=initMap"
     async defer></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('connect', function() {
+            socket.emit('my event', {data: 'I\'m connected!'});
+            console.log('connected!');
+        });
+
+        socket.on('update', function(data) {
+          console.log(data);
+        });
+    </script>
   </body>
 </html>

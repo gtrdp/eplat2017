@@ -42,3 +42,17 @@ July #2
 		- Mobile apps parametrs now working.
 		- Web app showing the mapp is now on progress: flask by default look the html in the templates page.
 		- Maps template is now working.
+- **Sel Jul 11 10:00:58 WIB 2017**
+	- working on the maps.
+		- https://developers.google.com/maps/documentation/javascript/examples/icon-complex
+		- https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+	- Use `flask socketio` extension on flask to implement web socket.
+		- https://flask-socketio.readthedocs.io/en/latest/
+		- nice explanation: https://www.fullstackpython.com/websockets.html
+		- The websocket worked but it seems to be unstable. It often encounters connection lost and needs to reconnect.
+		- The client side javascript is done by using `socket.io` library.
+	- The basic idea is everytime the raspberry server receives an update request from an eplat, the raspberry server pushes the data to the webclient.
+	- TODO:
+		- make sure `ASyncTask` instance is killed properly after running the http request.
+		- make sure both eplat->server and server->webclient connection work properly.
+	- For ITS web: https://inet.detik.com/cyberlife/d-3183119/menyambut-era-sistem-transportasi-cerdas-di-indonesia
