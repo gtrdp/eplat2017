@@ -56,3 +56,6 @@ July #2
 		- make sure `ASyncTask` instance is killed properly after running the http request.
 		- make sure both eplat->server and server->webclient connection work properly.
 	- For ITS web: https://inet.detik.com/cyberlife/d-3183119/menyambut-era-sistem-transportasi-cerdas-di-indonesia
+- **Rab Jul 12 09:26:14 WIB 2017**
+	- Searching about Google Maps in Android.
+		- https://developers.google.com/maps/documentation/android-api/map-with-marker
