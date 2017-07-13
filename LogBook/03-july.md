@@ -59,3 +59,9 @@ July #2
 - **Rab Jul 12 09:26:14 WIB 2017**
 	- Searching about Google Maps in Android.
 		- https://developers.google.com/maps/documentation/android-api/map-with-marker
+- **Kam Jul 13 09:55:26 WIB 2017**
+	- Start to write the patent draft. Some examples:
+		- https://www.google.co.id/patents/US8253593?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEITzAF
+		- https://www.google.co.id/patents/US7884738?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEIajAI
+		- https://www.google.co.id/patents/US7821422?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEIczAJ
+	
