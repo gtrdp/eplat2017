@@ -64,4 +64,25 @@ July #2
 		- https://www.google.co.id/patents/US8253593?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEITzAF
 		- https://www.google.co.id/patents/US7884738?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEIajAI
 		- https://www.google.co.id/patents/US7821422?dq=traffic+light+system&hl=nl&sa=X&ved=0ahUKEwiJ04XqsIXVAhUEsY8KHU5jD6kQ6AEIczAJ
-	
+- **Jum Jul 14 10:15:15 WIB 2017**
+	- Drafting patent.
+
+July #3
+------
+- **Sen Jul 17 09:16:17 WIB 2017**
+	- Drafting Patent.
+	- Meet Pak Selo.
+- **Sel Jul 18 09:16:17 WIB 2017**
+	- Drafting Patent.
+	- What is currently not present in the patent draft:
+		- Detailed block diagram, showing the relay, raspberry pi, ubiquiti access point, and stuff.
+		- Time sequence diagram, presenting the communication between the vehicle and the traffic controller in a timely manner.
+		- VANET communication scheme that bridges a traffic light to another using vehicles.
+		- The corresponding description of those figures.
+	- Start to write mid-term report.
+	- Working on cabling.
+	- Potential conference:
+		- http://snti.untar.ac.id/index.php/call-for-paper/topik-seminar
+		- http://semnastek.umj.ac.id/
+		- http://sisfotek.org/
+	- Looking for some info about conference.
