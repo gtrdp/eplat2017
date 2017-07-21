@@ -77,6 +77,7 @@ July #3
 	- What is currently not present in the patent draft:
 		- Detailed block diagram, showing the relay, raspberry pi, ubiquiti access point, and stuff.
 		- Time sequence diagram, presenting the communication between the vehicle and the traffic controller in a timely manner.
+		- Flowchart of the system.
 		- VANET communication scheme that bridges a traffic light to another using vehicles.
 		- The corresponding description of those figures.
 	- Start to write mid-term report.
@@ -85,4 +86,12 @@ July #3
 		- http://snti.untar.ac.id/index.php/call-for-paper/topik-seminar
 		- http://semnastek.umj.ac.id/
 		- http://sisfotek.org/
+		- http://sinaptika.mercubuana.ac.id/news.php
 	- Looking for some info about conference.
+- **Rab Jul 19 09:27:12 WIB 2017**
+	- Writing the mid-term report.
+	- Deciding which conference to go for.
+- **Kam Jul 20 09:51:33 WIB 2017**
+	- Finalizing mid-term report.
+- **Jum Jul 21 09:08:16 WIB 2017**
+	- Finalizing mid-term report.
