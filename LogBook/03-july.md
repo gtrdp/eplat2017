@@ -68,7 +68,7 @@ July #2
 	- Drafting patent.
 
 July #3
-------
+-------
 - **Sen Jul 17 09:16:17 WIB 2017**
 	- Drafting Patent.
 	- Meet Pak Selo.
@@ -95,3 +95,16 @@ July #3
 	- Finalizing mid-term report.
 - **Jum Jul 21 09:08:16 WIB 2017**
 	- Finalizing mid-term report.
+
+July #4
+-------
+- **Sen Jul 24 10:14:11 WIB 2017**
+	- SKK Migas.
+	- Got the practicals handbook for buku ajar.
+- **Sel Jul 25 10:14:11 WIB 2017**
+	- SKK Migas.
+	- Away (Jakarta).
+- **Rab Jul 26 10:14:11 WIB 2017**
+	- Away (Jakarta).
+- **Kam Jul 27 10:14:11 WIB 2017**
+	- Start writing manuscript for seminar nasional.
