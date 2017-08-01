@@ -108,3 +108,5 @@ July #4
 	- Away (Jakarta).
 - **Kam Jul 27 10:14:11 WIB 2017**
 	- Start writing manuscript for seminar nasional.
+- **Fri Jul 28 08:57:19 WIB 2017**
+	- Writing paper for seminar nasional.
