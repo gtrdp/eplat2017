@@ -51,3 +51,6 @@ August #3
 ---------
 - **Mon Aug 14 13:49:14 WIB 2017**
 	- Finalizing Laporan Kemajuan [DONE].
+- **Sel Agu 15 10:36:14 WIB 2017**
+  - Bought color printer.
+  - Look for some references for ICFSS.
