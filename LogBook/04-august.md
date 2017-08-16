@@ -54,3 +54,5 @@ August #3
 - **Sel Agu 15 10:36:14 WIB 2017**
   - Bought color printer.
   - Look for some references for ICFSS.
+- **Rab Agu 16 09:12:24 WIB 2017**
+  - Looking for some ideas for ICFSS.
