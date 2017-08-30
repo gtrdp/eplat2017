@@ -56,3 +56,30 @@ August #3
   - Look for some references for ICFSS.
 - **Rab Agu 16 09:12:24 WIB 2017**
   - Looking for some ideas for ICFSS.
+- **Kam Agu 17 09:12:24 WIB 2017**
+  - Indonesian Independence day.
+- **Jum Agu 18 09:12:24 WIB 2017**
+  - Meeting Yuk Application.
+
+August #4
+---------
+- **Mon Aug 21 20:05:56 WIB 2017**
+	- Meeting Yuk app.
+- **Tue Aug 22 20:05:56 WIB 2017**
+	- Reading papers for ICFSS.
+- **Wed Aug 23 20:05:56 WIB 2017**
+	- Big Data Analytic.
+- **Thu Aug 24 20:05:56 WIB 2017**
+	- Finalizing the abstract.
+- **Fri Aug 25 10:33:26 WIB 2017**
+	- Met Pak Selo for a discussion about the research paper for ICFSS.
+	- http://crawdad.org -> for a datasets related to wireless communication (including VANETs).
+
+August #5
+---------
+- **Mon Aug 28 16:52:45 WIB 2017**
+	- Handed in the laporan kemajuan to DitPenelitian UGM.
+- **Tue Aug 29 09:23:52 WIB 2017**
+	- Abstract done.
+- **Wed Aug 30 10:58:07 WIB 2017**
+	- Working on Android app.
