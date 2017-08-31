@@ -1,4 +1,4 @@
-package ugm.dteti.se.eplat.eplat;
+package ugm.dteti.se.eplat.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
