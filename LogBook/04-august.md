@@ -83,3 +83,8 @@ August #5
 	- Abstract done.
 - **Wed Aug 30 10:58:07 WIB 2017**
 	- Working on Android app.
+  - Got connection error when accessing the flask server through POST.
+    - The GET method however is still working.
+- **Kam Agu 31 09:58:49 WIB 2017**
+  - Try to implement retrofit for REST client in Android.
+  - http://www.jsonschema2pojo.org/
