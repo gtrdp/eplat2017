@@ -8,9 +8,9 @@ import logging
 app = Flask(__name__)
 socketio = SocketIO(app)
 # set the reporting error only
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-# app.debug = True
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
+app.debug = True
 
 @app.route('/', methods=["GET", "POST"])
 def index():
