@@ -16,6 +16,7 @@ import ugm.dteti.se.eplat.R;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     String direction;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng crossRoad = new LatLng(-7.762007, 110.369383);
 
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(crossRoad));
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
+
+        // add marker on click
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                LatLng crossRoad = new LatLng(latLng.latitude, latLng.longitude);
+                mMap.addMarker(new MarkerOptions().position(crossRoad)
+                        .title("Traffic Light"));
+            }
+        });
     }
 }

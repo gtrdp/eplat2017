@@ -89,3 +89,4 @@ August #5
   - Try to implement retrofit for REST client in Android.
   - http://www.jsonschema2pojo.org/
   - https://stackoverflow.com/questions/14785806/android-how-to-make-an-activity-return-results-to-the-activity-which-calls-it
+  - Retrofit is now working, next is creating marker and snapping to road to get the ambulance's path.
