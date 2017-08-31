@@ -3,6 +3,7 @@ package ugm.dteti.se.eplat.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,8 +12,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ugm.dteti.se.eplat.R;
+import ugm.dteti.se.eplat.model.EplatData;
+import ugm.dteti.se.eplat.rest.ApiClient;
+import ugm.dteti.se.eplat.rest.ApiInterface;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -21,17 +30,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     String deviceId, lat, lon, direction, serverAddress;
     static final int PICK_LOCATION_REQUEST = 1;  // The request code
-    public static final String BASE_URL = "http://api.myservice.com/"; // Trailing slash is needed
+
+    ApiInterface apiService;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         editAdress = (EditText) findViewById(R.id.edtServerAddress);
         editDeviceId = (EditText) findViewById(R.id.edtDeviceId);
@@ -62,8 +68,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Sending the data!", Toast.LENGTH_SHORT).show();
-                getParameters();
+                // start the api service
+                apiService = ApiClient.getClient().create(ApiInterface.class);
+
+                // prepare the data
+                EplatData data = getParameters();
 //                new PostJSON(serverAddress, deviceId, lat, lon, direction).execute();
+
+                // execute
+                Call<ResponseBody> call = apiService.sendEplatData(data);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d(TAG, response.body().toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(TAG, t.toString());
+                    }
+                });
             }
         });
     }
@@ -78,10 +102,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public void getParameters() {
+    public EplatData getParameters() {
         deviceId = editDeviceId.getText().toString();
         serverAddress = "http://" + editAdress.getText().toString() + ":5000";
         lat = "-7.797068";
         lon = "110.370529";
+
+        return new EplatData(deviceId, lat, lon, direction);
     }
 }

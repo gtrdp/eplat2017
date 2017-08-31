@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import ugm.dteti.se.eplat.R;
+
 public class LauncherActivity extends AppCompatActivity {
 
     @Override
