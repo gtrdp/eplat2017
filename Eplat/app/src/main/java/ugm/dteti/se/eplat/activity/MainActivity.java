@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     ApiInterface apiService;
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String BASE_URL = "http://10.42.10.211:5000/"; // for raspi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Sending the data!", Toast.LENGTH_SHORT).show();
                 // start the api service
-                apiService = ApiClient.getClient().create(ApiInterface.class);
+                apiService = ApiClient.getClient(BASE_URL).create(ApiInterface.class);
 
                 // prepare the data
                 EplatData data = getParameters();

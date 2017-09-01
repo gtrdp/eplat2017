@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ugm.dteti.se.eplat.eplat.MapActivity">
+    tools:context="ugm.dteti.se.eplat.activity.MapActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,6 +26,26 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+        tools:context="com.example.mapwithmarker.MapsMarkerActivity"
+        android:layout_gravity="top"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/btnResetMarker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset Marker" />
+
+        <Button
+            android:id="@+id/btnConfirmMarker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

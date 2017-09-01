@@ -1,22 +1,47 @@
 package ugm.dteti.se.eplat.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ugm.dteti.se.eplat.R;
+import ugm.dteti.se.eplat.model.SnapToRoadResult;
+import ugm.dteti.se.eplat.model.SnappedPoint;
+import ugm.dteti.se.eplat.rest.ApiClient;
+import ugm.dteti.se.eplat.rest.ApiInterface;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    String direction;
     private GoogleMap mMap;
+    private String[] markerLabels = {"Start", "Crossing", "Stop"};
+    private List<Marker> markers = new ArrayList<Marker>();
+
+    public static final String BASE_URL = "https://roads.googleapis.com/"; // for GMaps snap to road
+    private final static String API_KEY = "AIzaSyC-xk4f97rKVqJg3YWVccEx83uguofc97o";
+
+    private ApiInterface apiService;
+
+    private List<SnappedPoint> snappedPoints = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +55,37 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // btn reset map
+        Button btnResetMarker = (Button) findViewById(R.id.btnResetMarker);
+        btnResetMarker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Marker is reset.", Toast.LENGTH_SHORT).show();
+                mMap.clear();
+                markers.clear();
+            }
+        });
+
+        // btn confirm
+        Button btnConfirm = (Button) findViewById(R.id.btnConfirmMarker);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "OK Ready to go.", Toast.LENGTH_SHORT).show();
+                mMap.clear();
+                markers.clear();
+            }
+        });
+
+        // Google Maps snap to road API
+        apiService = ApiClient.getClient(BASE_URL).create(ApiInterface.class);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
         LatLng crossRoad = new LatLng(-7.762007, 110.369383);
-
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(crossRoad));
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
 
@@ -46,10 +93,61 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                LatLng crossRoad = new LatLng(latLng.latitude, latLng.longitude);
-                mMap.addMarker(new MarkerOptions().position(crossRoad)
-                        .title("Traffic Light"));
+                if (markers.size() < 3) {
+                    LatLng crossRoad = new LatLng(latLng.latitude, latLng.longitude);
+                    Marker locationMarker = mMap.addMarker(new MarkerOptions().position(crossRoad)
+                            .title(markerLabels[markers.size()]));
+                    locationMarker.showInfoWindow();
+
+                    markers.add(locationMarker);
+                    Log.i("Marker", Integer.toString(markers.size()));
+
+                    if (markers.size() == 3) {
+                        // get the marker coordinates
+                        String path = "";
+                        for (int i = 0; i < markers.size(); i++) {
+                            Marker m = markers.get(i);
+                            String lat = Double.toString(m.getPosition().latitude);
+                            String lon = Double.toString(m.getPosition().longitude);
+
+                            path += lat + "," + lon + "|";
+                        }
+                        path = path.substring(0, path.length() - 1); // remove trailing pipe |
+
+                        Call<SnapToRoadResult> call = apiService.getSnapToRoad("true",
+                                path, API_KEY);
+                        call.enqueue(new Callback<SnapToRoadResult>() {
+                            @Override
+                            public void onResponse(Call<SnapToRoadResult> call, Response<SnapToRoadResult> response) {
+                                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                                Log.d("JSON Result", response.message());
+
+                                snappedPoints = response.body().getSnappedPoints();
+                                drawPath(snappedPoints);
+                            }
+
+                            @Override
+                            public void onFailure(Call<SnapToRoadResult> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "An error occured" + t.toString(),
+                                        Toast.LENGTH_LONG).show();
+                                Log.e("Error Response", t.toString());
+                            }
+                        });
+                    }
+                }
             }
         });
+    }
+
+    private void drawPath(List<SnappedPoint> snappedPoints) {
+        Toast.makeText(getApplicationContext(), Integer.toString(snappedPoints.size()), Toast.LENGTH_SHORT).show();
+
+        PolylineOptions options = new PolylineOptions().width(7).color(Color.BLUE).geodesic(true);
+        for (int i = 0; i < snappedPoints.size(); i++) {
+            SnappedPoint sp = snappedPoints.get(i);
+            LatLng point = new LatLng(sp.getLoc().getLatitude(), sp.getLoc().getLongitude());
+            options.add(point);
+        }
+        mMap.addPolyline(options);
     }
 }

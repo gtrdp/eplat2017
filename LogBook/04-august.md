@@ -90,3 +90,7 @@ August #5
   - http://www.jsonschema2pojo.org/
   - https://stackoverflow.com/questions/14785806/android-how-to-make-an-activity-return-results-to-the-activity-which-calls-it
   - Retrofit is now working, next is creating marker and snapping to road to get the ambulance's path.
+- **Fri Sep  1 14:00:05 WIB 2017**
+	- Developing the android with Google Maps SDK.
+		- To get the points the ambulance will pass, we use Google Maps snap to road REST API.
+		- The input is start, crossing, finish.
