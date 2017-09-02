@@ -1,5 +1,6 @@
 package ugm.dteti.se.eplat.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +74,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "OK Ready to go.", Toast.LENGTH_SHORT).show();
-                mMap.clear();
-                markers.clear();
+                if (markers.size() == 3) {
+                    Toast.makeText(getApplicationContext(), "OK Ready to go.", Toast.LENGTH_SHORT).show();
+
+                    // set the returned data
+                    Gson gson = new Gson();
+                    Intent data = new Intent();
+                    data.putExtra("snappedPoints", gson.toJson(snappedPoints));
+                    setResult(RESULT_OK, data);
+
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Please set starting, crossing, and ending markers.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -140,14 +154,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void drawPath(List<SnappedPoint> snappedPoints) {
-        Toast.makeText(getApplicationContext(), Integer.toString(snappedPoints.size()), Toast.LENGTH_SHORT).show();
-
         PolylineOptions options = new PolylineOptions().width(7).color(Color.BLUE).geodesic(true);
+
         for (int i = 0; i < snappedPoints.size(); i++) {
             SnappedPoint sp = snappedPoints.get(i);
             LatLng point = new LatLng(sp.getLoc().getLatitude(), sp.getLoc().getLongitude());
             options.add(point);
         }
+
         mMap.addPolyline(options);
     }
 }

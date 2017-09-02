@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ugm.dteti.se.eplat.eplat.MainActivity">
+    tools:context="ugm.dteti.se.eplat.activity.MainActivity">
 
 
     <LinearLayout
@@ -24,6 +24,20 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Server Address" />
+
+                <EditText
+                    android:id="@+id/edtServerAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="10.72.36.157:5000" />
+
+                <TextView
                     android:id="@+id/txtDeviceId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -36,20 +50,6 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="12345" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Server Address" />
-
-                <EditText
-                    android:id="@+id/edtServerAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="10.72.36.157" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -77,22 +77,12 @@
                     android:layout_height="wrap_content"
                     android:text="Open Map" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Direction" />
-
-                <Spinner
-                    android:id="@+id/spinnerDirection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
                 <Button
                     android:id="@+id/btnStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Start" />
+                    android:text="Start"
+                    android:layout_marginTop="20dp"/>
             </LinearLayout>
         </ScrollView>
 
