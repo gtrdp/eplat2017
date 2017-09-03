@@ -133,7 +133,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         call.enqueue(new Callback<SnapToRoadResult>() {
                             @Override
                             public void onResponse(Call<SnapToRoadResult> call, Response<SnapToRoadResult> response) {
-                                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                                 Log.d("JSON Result", response.message());
 
                                 snappedPoints = response.body().getSnappedPoints();
