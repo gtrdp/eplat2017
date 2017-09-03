@@ -31,6 +31,8 @@ import ugm.dteti.se.eplat.model.SnapToRoadResult;
 import ugm.dteti.se.eplat.model.SnappedPoint;
 import ugm.dteti.se.eplat.rest.ApiClient;
 import ugm.dteti.se.eplat.rest.ApiInterface;
+import ugm.dteti.se.eplat.rest.SnapToRoadAPI;
+import ugm.dteti.se.eplat.rest.SnapToRoadInterface;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -41,7 +43,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static final String BASE_URL = "https://roads.googleapis.com/"; // for GMaps snap to road
     private final static String API_KEY = "AIzaSyC-xk4f97rKVqJg3YWVccEx83uguofc97o";
 
-    private ApiInterface apiService;
+    private SnapToRoadInterface strInterface;
 
     private List<SnappedPoint> snappedPoints = null;
 
@@ -93,7 +95,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
 
         // Google Maps snap to road API
-        apiService = ApiClient.getClient(BASE_URL).create(ApiInterface.class);
+        strInterface = SnapToRoadAPI.getClient().create(SnapToRoadInterface.class);
     }
 
     @Override
@@ -128,7 +130,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         }
                         path = path.substring(0, path.length() - 1); // remove trailing pipe |
 
-                        Call<SnapToRoadResult> call = apiService.getSnapToRoad("true",
+                        Call<SnapToRoadResult> call = strInterface.getSnapToRoad("true",
                                 path, API_KEY);
                         call.enqueue(new Callback<SnapToRoadResult>() {
                             @Override

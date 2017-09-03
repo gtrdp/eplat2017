@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class EplatData {
 
-    public EplatData(String deviceId, String lat, String lon, String direction) {
+    public EplatData(String deviceId, Double lat, Double lon, String direction) {
         this.deviceId = deviceId;
         this.lat = lat;
         this.lon = lon;
@@ -18,9 +18,9 @@ public class EplatData {
     @SerializedName("device_id")
     private String deviceId;
     @SerializedName("lat")
-    private String lat;
+    private Double lat;
     @SerializedName("lon")
-    private String lon;
+    private Double lon;
     @SerializedName("direction")
     private String direction;
 
@@ -32,19 +32,19 @@ public class EplatData {
         this.deviceId = deviceId;
     }
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public String getLon() {
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 

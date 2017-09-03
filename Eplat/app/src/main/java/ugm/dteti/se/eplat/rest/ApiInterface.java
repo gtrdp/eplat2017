@@ -16,8 +16,4 @@ import ugm.dteti.se.eplat.model.SnapToRoadResult;;
 public interface ApiInterface {
     @POST("api")
     Call<ResponseBody> sendEplatData(@Body EplatData data);
-
-    @GET("v1/snapToRoads")
-    Call<SnapToRoadResult> getSnapToRoad(@Query("interpolate") String interpolate,
-                                         @Query("path") String path, @Query("key") String apiKey);
 }

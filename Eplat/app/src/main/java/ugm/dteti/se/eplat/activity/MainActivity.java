@@ -1,30 +1,27 @@
 package ugm.dteti.se.eplat.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.IntegerRes;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import ugm.dteti.se.eplat.R;
 import ugm.dteti.se.eplat.model.EplatData;
 import ugm.dteti.se.eplat.model.SnappedPoint;
@@ -35,15 +32,18 @@ public class MainActivity extends AppCompatActivity{
 
     EditText editAdress;
     EditText editDeviceId;
+    EditText editDelay;
 
     String deviceId, lat, lon, serverAddress;
+    private int delay;
     static final int PICK_LOCATION_REQUEST = 1;  // The request code
 
     ApiInterface apiService;
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String BASE_URL = "http://10.42.10.211:5000/"; // for raspi
 
-    private List<SnappedPoint> snappedPoints = null;
+    private List<SnappedPoint> snappedPoints = new ArrayList<>();
+    ProgressDialog dlg = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
         editAdress = (EditText) findViewById(R.id.edtServerAddress);
         editDeviceId = (EditText) findViewById(R.id.edtDeviceId);
+        editDelay = (EditText) findViewById(R.id.edtTimeInterval);
 
         // Button Map
         Button btnMap = (Button) findViewById(R.id.btnMap);
@@ -71,28 +72,23 @@ public class MainActivity extends AppCompatActivity{
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (snappedPoints != null) {
-                    Toast.makeText(getApplicationContext(),
-                            "Sending the data!", Toast.LENGTH_SHORT).show();
+                if (!snappedPoints.isEmpty()) {
                     // start the api service
-                    apiService = ApiClient.getClient(BASE_URL).create(ApiInterface.class);
+                    serverAddress = "http://" + editAdress.getText().toString() + ":5000/";
+                    apiService = ApiClient.getClient(serverAddress).create(ApiInterface.class);
 
                     // prepare the data
-                    EplatData data = getParameters();
+                    deviceId = editDeviceId.getText().toString();
+                    delay = Integer.valueOf(editDelay.getText().toString());
 
-                    // execute
-                    Call<ResponseBody> call = apiService.sendEplatData(data);
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            Log.d(TAG, response.body().toString());
-                        }
+                    // prepare the loading dialog
+                    dlg = new ProgressDialog(MainActivity.this);
+                    dlg.setMessage("Sending data...");
+                    dlg.setCancelable(true);
+                    dlg.show();
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Log.e(TAG, t.toString());
-                        }
-                    });
+                    // start the loop
+                    sendLoop();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please select direction first!", Toast.LENGTH_SHORT).show();
@@ -101,13 +97,43 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public EplatData getParameters() {
-        deviceId = editDeviceId.getText().toString();
-        serverAddress = "http://" + editAdress.getText().toString() + ":5000";
-        lat = "-7.797068";
-        lon = "110.370529";
+    private void sendLoop() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendData();
+            }
+        }, delay);
+    }
 
-        return new EplatData(deviceId, lat, lon, "");
+    private void sendData() {
+        if (!snappedPoints.isEmpty()) {
+            // prepare data
+            SnappedPoint sp = snappedPoints.get(0);
+            snappedPoints.remove(0);
+            Log.d("Snapped Ppoints size", Integer.toString(snappedPoints.size()));
+
+            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId,
+                    sp.getLoc().getLatitude(), sp.getLoc().getLongitude(), "north"));
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d(TAG, Integer.toString(response.code()));
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e(TAG, t.toString());
+                }
+            });
+
+            sendLoop();
+        } else {
+            dlg.dismiss();
+            Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // get the returned path from google maps

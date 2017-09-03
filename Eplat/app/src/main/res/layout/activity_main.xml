@@ -34,8 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="10.72.36.157:5000" />
+                    android:inputType="numberDecimal"
+                    android:text="192.168.1.10" />
 
                 <TextView
                     android:id="@+id/txtDeviceId"
@@ -55,15 +55,15 @@
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Time Interval" />
+                    android:text="Time Interval (ms)" />
 
                 <EditText
                     android:id="@+id/edtTimeInterval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="200ms" />
+                    android:inputType="number"
+                    android:text="200" />
 
                 <TextView
                     android:id="@+id/textView"
