@@ -5,6 +5,8 @@ from flask import Markup
 from flask import render_template
 import logging
 
+import json
+
 app = Flask(__name__)
 # socketio = SocketIO(app)
 # set the reporting error only
@@ -28,6 +30,14 @@ def api():
     if request.method == 'POST':
         # emit('update', request.data)
         print(request.data)
+
+        # determine the direction of the ambulance
+        junction = [-7.762049, 110.369364]
+
+        # write to file
+        with open('data.json', 'w') as data_file:
+            data_file.write(request.data)
+
         return 'Processing the input...'
 
 # @socketio.on('my event')
