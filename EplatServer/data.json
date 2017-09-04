@@ -1,1 +1,1 @@
-{"device_id":"12345","direction":"north","lat":-7.762151897746425,"lon":110.37007759357256}
+{"traffic_light": [0, 1, 0, 0], "ambulance": {"info": {"lat": -7.762151897747425, "direction": "north", "lon": 110.37007759357256, "device_id": "12345"}, "distance": 79.53814605162728, "direction": 1, "angle": 98.2801749906107}}

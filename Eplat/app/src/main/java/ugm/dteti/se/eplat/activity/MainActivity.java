@@ -132,20 +132,20 @@ public class MainActivity extends AppCompatActivity{
             sendLoop();
         } else {
             // send exit message
-//            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId,
-//                    0d, 0d, "north"));
-//
-//            call.enqueue(new Callback<ResponseBody>() {
-//                @Override
-//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                    Log.d(TAG, Integer.toString(response.code()));
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                    Log.e(TAG, t.toString());
-//                }
-//            });
+            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId,
+                    0d, 0d, "north"));
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d(TAG, Integer.toString(response.code()));
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e(TAG, t.toString());
+                }
+            });
 
             dlg.dismiss();
             Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
