@@ -33,14 +33,13 @@ def api():
         print(request.data)
 
         junction = [-7.762049, 110.369364]
-        request = json.loads(request.data)
         
         # read previous data
         with open('data.json') as data_file:
             data_json = json.load(data_file)
 
         # get the json
-        ambulance = json.loads(request)
+        ambulance = json.loads(request.data)
         data = data_json
         if ambulance['lat'] == 0 and ambulance['lon'] == 0:
             # exit signal, emitted when the ambulance leaving the traffic light
@@ -68,12 +67,10 @@ def api():
 
         # check the delta_distance to determine whether the ambulance is approaching
         # or leaving the traffic light
-        if data['ambulance']['distance'] != -1 and distance >= data['ambulance']['distance']:
+        if data['ambulance']['distance'] == -1 or distance >= data['ambulance']['distance']:
             # approaching; set appropriate traffic light to green
             data['traffic_light'][direction] = 1
-            
         elif data['ambulance']['distance'] != -1 and distance < data['ambulance']['distance']:
-            print 'here2'
             # leaving set all traffic light to red
             data['traffic_light'] = [0, 0, 0, 0]
         else:
@@ -89,7 +86,14 @@ def api():
 
 
 
-        return '{"status": "OK", "message": "Processing the input..."}'
+    return '{"status": "OK", "message": "Processing the input..."}'
+
+@app.route('/get_data', methods=['POST'])
+def get_data():
+    if request.method == 'POST':
+        # read previous data
+        with open('data.json') as data_file:
+            return json.dumps(json.load(data_file))
 
 # @socketio.on('my event')
 # def handle_my_custom_event(json):
@@ -127,7 +131,7 @@ def calculate_angle(lat1, lon1, lat2, lon2):
 def convert_angle(degr):
     direction = -1
 
-    if degr > 315 and degr < 45:
+    if degr > 315 or degr < 45:
         # north
         direction = 0
     elif degr > 45 and degr < 135:

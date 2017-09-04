@@ -136,11 +136,25 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script>
       var map;
+      var ambulanceIcon = 'http://maps.google.com/mapfiles/kml/pal4/icon62.png';
+      var lights = [
+          'http://maps.google.com/mapfiles/kml/paddle/stop-lv.png', // red
+          'http://maps.google.com/mapfiles/kml/paddle/go-lv.png', // green
+          'http://maps.google.com/mapfiles/kml/paddle/pause-lv.png' // yellow
+      ];
+      var trafficLights = [
+        ['North', -7.761583, 110.369335, 0],
+        ['East', -7.762083, 110.369743, 0],
+        ['South', -7.762370, 110.369367, 0],
+        ['West', -7.761998, 110.368809, 0]
+      ];
+      var ambulanceMarker = null;
+
       function initMap() {
         var myLatLng = {lat: -7.762007, lng: 110.369383};
 
@@ -150,22 +164,10 @@
         });
 
         setMarkers(map);
+        doPoll();
       }
 
-      var trafficLights = [
-        ['North', -7.761583, 110.369335, 0],
-        ['East', -7.762083, 110.369743, 0],
-        ['South', -7.762370, 110.369367, 0],
-        ['West', -7.761998, 110.368809, 2]
-      ];
-
       function setMarkers(map) {
-        var lights = [
-            'http://maps.google.com/mapfiles/kml/paddle/stop-lv.png', // red
-            'http://maps.google.com/mapfiles/kml/paddle/pause-lv.png', // yellow
-            'http://maps.google.com/mapfiles/kml/paddle/go-lv.png' // green
-        ];
-
         for (var i = 0; i < trafficLights.length; i++) {
           var trafficLight = trafficLights[i];
           var marker = new google.maps.Marker({
@@ -175,6 +177,55 @@
             title: trafficLight[0]
           });
         }
+      }
+
+      function resetMarkers(trafficLightSetting) {
+        for (var i = 0; i < trafficLights.length; i++) {
+          var trafficLight = trafficLights[i];
+          var marker = new google.maps.Marker({
+            position: {lat: trafficLight[1], lng: trafficLight[2]},
+            map: map,
+            icon: lights[trafficLightSetting[i]],
+            title: trafficLight[0]
+          });
+        }
+      }
+
+      function showAmbulance(lat, lon) {
+        if (lat == 0 && lon == 0 && ambulanceMarker != null) {
+          // exit signal, remove the ambulance
+          ambulanceMarker.setMap(null);
+          ambulanceMarker == null;
+        } else if (lat == 0 && lon == 0 && ambulanceMarker == null) {
+          // nothing happened
+          // do nothing
+        } else if (lat != 0 && lon != 0 && ambulanceMarker == null) {
+          // new marker
+          ambulanceMarker = new google.maps.Marker({
+            position: {lat: lat, lng: lon},
+            map: map,
+            icon: ambulanceIcon,
+            title: 'ambulance'
+          });
+        } else {
+          // update the marker
+          ambulanceMarker.setPosition(new google.maps.LatLng(lat, lon));
+        }
+      }
+
+      function doPoll(){
+          $.post('get_data', function(data) {  
+            dataJSON = JSON.parse(data);
+
+            // reset marker
+            resetMarkers(dataJSON['traffic_light']);
+            // show the ambulance icon
+            lat = dataJSON['ambulance']['info']['lat']
+            lon = dataJSON['ambulance']['info']['lon']
+            showAmbulance(lat, lon);
+
+            setTimeout(doPoll,100);
+          });
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5Eggmq09GXmcAK8NUVHJiUWyBTYeBW3I&callback=initMap"
