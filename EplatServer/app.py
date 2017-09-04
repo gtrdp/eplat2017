@@ -23,7 +23,7 @@ def index():
         return 'Processing the input...'
     else:
         print("someone access the raspberry in GET method!!")
-        return render_template("map.html")
+        return render_template("dashboard.html")
         # return "hello"
 
 @app.route('/api', methods=['POST'])
