@@ -153,6 +153,7 @@
         ['South', -7.762370, 110.369367, 0],
         ['West', -7.761998, 110.368809, 0]
       ];
+      var trafficLightMarkers = []
       var ambulanceMarker = null;
 
       function initMap() {
@@ -170,7 +171,7 @@
       function setMarkers(map) {
         for (var i = 0; i < trafficLights.length; i++) {
           var trafficLight = trafficLights[i];
-          var marker = new google.maps.Marker({
+          trafficLightMarkers[i] = new google.maps.Marker({
             position: {lat: trafficLight[1], lng: trafficLight[2]},
             map: map,
             icon: lights[trafficLight[3]],
@@ -180,14 +181,8 @@
       }
 
       function resetMarkers(trafficLightSetting) {
-        for (var i = 0; i < trafficLights.length; i++) {
-          var trafficLight = trafficLights[i];
-          var marker = new google.maps.Marker({
-            position: {lat: trafficLight[1], lng: trafficLight[2]},
-            map: map,
-            icon: lights[trafficLightSetting[i]],
-            title: trafficLight[0]
-          });
+        for (var i = 0; i < trafficLightMarkers.length; i++) {
+          trafficLightMarkers[i].setIcon(lights[trafficLightSetting[i]]);
         }
       }
 
@@ -195,7 +190,7 @@
         if (lat == 0 && lon == 0 && ambulanceMarker != null) {
           // exit signal, remove the ambulance
           ambulanceMarker.setMap(null);
-          ambulanceMarker == null;
+          ambulanceMarker = null;
         } else if (lat == 0 && lon == 0 && ambulanceMarker == null) {
           // nothing happened
           // do nothing

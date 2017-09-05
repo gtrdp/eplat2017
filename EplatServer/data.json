@@ -1,1 +1,1 @@
-{"traffic_light": [1, 1, 1, 0], "ambulance": {"info": {"lat": 0.0, "direction": "north", "lon": 0.0, "device_id": "12345"}, "distance": -1, "direction": 0, "angle": 0}}
+{"traffic_light": [0, 0, 0, 0], "ambulance": {"info": {"lat": 0.0, "direction": "north", "lon": 0.0, "device_id": "12345"}, "distance": -1, "direction": 0, "angle": 0}}
