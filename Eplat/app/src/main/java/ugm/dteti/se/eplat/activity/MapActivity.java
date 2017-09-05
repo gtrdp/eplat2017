@@ -14,6 +14,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -37,7 +39,7 @@ import ugm.dteti.se.eplat.rest.SnapToRoadInterface;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String[] markerLabels = {"Start", "Crossing", "Stop"};
+    private String[] markerLabels = {"Start", "Stop"};
     private List<Marker> markers = new ArrayList<Marker>();
 
     public static final String BASE_URL = "https://roads.googleapis.com/"; // for GMaps snap to road
@@ -46,6 +48,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SnapToRoadInterface strInterface;
 
     private List<SnappedPoint> snappedPoints = null;
+    private Marker trafficLightMarker = null;
+    BitmapDescriptor icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(getApplicationContext(), "Marker is reset.", Toast.LENGTH_SHORT).show();
                 mMap.clear();
                 markers.clear();
+
+                // add traffic light marker
+                trafficLightMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(-7.762049, 110.369364))
+                        .title("Traffic Light").icon(icon));
             }
         });
 
@@ -76,7 +84,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (markers.size() == 3) {
+                if (markers.size() == 2) {
                     Toast.makeText(getApplicationContext(), "OK Ready to go.", Toast.LENGTH_SHORT).show();
 
                     // set the returned data
@@ -105,11 +113,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(crossRoad));
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
 
+        // add traffic light marker
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.traffic);
+        trafficLightMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(-7.762049, 110.369364))
+                .title("Traffic Light").icon(icon));
+
         // add marker on click
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if (markers.size() < 3) {
+                if (markers.size() < 2) {
                     LatLng crossRoad = new LatLng(latLng.latitude, latLng.longitude);
                     Marker locationMarker = mMap.addMarker(new MarkerOptions().position(crossRoad)
                             .title(markerLabels[markers.size()]));
@@ -118,10 +131,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     markers.add(locationMarker);
                     Log.i("Marker", Integer.toString(markers.size()));
 
-                    if (markers.size() == 3) {
+                    if (markers.size() == 2) {
                         // get the marker coordinates
                         String path = "";
                         for (int i = 0; i < markers.size(); i++) {
+                            if (i == 1) {
+                                // get the map coordinate before the last path
+                                String lat = Double.toString(trafficLightMarker.getPosition().latitude);
+                                String lon = Double.toString(trafficLightMarker.getPosition().longitude);
+
+                                path += lat + "," + lon + "|";
+                            }
                             Marker m = markers.get(i);
                             String lat = Double.toString(m.getPosition().latitude);
                             String lon = Double.toString(m.getPosition().longitude);
