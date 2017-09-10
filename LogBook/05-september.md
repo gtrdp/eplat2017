@@ -7,4 +7,12 @@ September #1
 	- Finalizing the prototype.
 	- The app is now able to send the simulated data. 
 - **Tue Sep  5 11:25:20 WIB 2017**
-	- Finishing the prototype.
+	- Finishing the prototype [DONE].
+	- Starting drafting paper.
+- **Wed Sep  6 09:59:15 WIB 2017**
+	- Drafting paper.
+- **thu Sep 7 23:56:40 WIB 2017**
+	- Kloudia.id meeting.
+- **Fri Sep 8 23:56:40 WIB 2017**
+	- Meet pak Hanung.
+	- Meet putra.
