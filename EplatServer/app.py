@@ -5,6 +5,10 @@ from flask import Markup
 from flask import render_template
 import logging
 
+import RPi.GPIO as GPIO
+import time
+import thread
+
 import json
 import math
 
@@ -14,6 +18,247 @@ app = Flask(__name__)
 # log = logging.getLogger('werkzeug')
 # log.setLevel(logging.ERROR)
 app.debug = True
+
+arah = 0
+waktu = 0
+antrian_a = []
+antrian_b = []
+antrian_c = []
+antrian_d = []
+
+def init_kondisi():
+    #Kondisi output
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    #Timur
+    GPIO.setup(24, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+    #Selatan
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.setup(25, GPIO.OUT)
+    #Barat
+    GPIO.setup(27, GPIO.OUT)
+    GPIO.setup(17, GPIO.OUT)
+    GPIO.setup(4, GPIO.OUT)
+    #Utara
+    GPIO.setup(6, GPIO.OUT)
+    GPIO.setup(5, GPIO.OUT)
+    GPIO.setup(22, GPIO.OUT)
+
+def timur_hijau (detik = 0):
+    global waktu
+    global arah
+    
+    arah = 2
+    
+    GPIO.output(24, 1)
+    GPIO.output(16, 0)
+    GPIO.output(27, 0)
+    GPIO.output(6, 0)
+    
+    GPIO.output(23, 1)
+    GPIO.output(12, 1)
+    GPIO.output(17, 1)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 0)
+    GPIO.output(25, 1)
+    GPIO.output(4, 1)
+    GPIO.output(22, 1)
+
+    for i in range(10 - detik):
+        waktu += 1
+        time.sleep(1)
+
+        waktu = 0
+
+def timur_kuning (detik = 0):
+    global waktu
+    global arah
+    
+    arah = 2
+    
+    GPIO.output(24, 1)
+    GPIO.output(16, 0)
+    GPIO.output(27, 0)
+    GPIO.output(6, 0)
+    
+    GPIO.output(23, 0)
+    GPIO.output(12, 1)
+    GPIO.output(17, 1)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 1)
+    GPIO.output(25, 1)
+    GPIO.output(4, 1)
+    GPIO.output(22, 1)
+    
+    for i in range(2):
+        time.sleep(1)
+
+        waktu = 0
+
+def selatan_hijau (detik = 0):
+    global waktu
+    global arah
+    
+    arah = 1
+    
+    GPIO.output(24, 0)
+    GPIO.output(16, 1)
+    GPIO.output(27, 0)
+    GPIO.output(6, 0)
+    
+    GPIO.output(23, 1)
+    GPIO.output(12, 1)
+    GPIO.output(17, 1)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 1)
+    GPIO.output(25, 0)
+    GPIO.output(4, 1)
+    GPIO.output(22, 1)
+    
+    for i in range(10 - detik):
+        waktu += 1
+        time.sleep(1)
+
+        waktu = 0
+
+def selatan_kuning (detik = 0):
+	global waktu
+	global arah
+	
+	arah = 1
+	
+	GPIO.output(24, 0)
+	GPIO.output(16, 1)
+	GPIO.output(27, 0)
+	GPIO.output(6, 0)
+	
+	GPIO.output(23, 1)
+	GPIO.output(12, 0)
+	GPIO.output(17, 1)
+	GPIO.output(5, 1)
+    
+	GPIO.output(18, 1)
+	GPIO.output(25, 1)
+	GPIO.output(4, 1)
+	GPIO.output(22, 1)
+    
+	for i in range(2):
+		time.sleep(1)
+        
+		waktu = 0
+
+def barat_hijau (detik = 0):
+    global waktu
+    global arah
+    
+    arah = 3
+    
+    GPIO.output(24, 0)
+    GPIO.output(16, 0)
+    GPIO.output(27, 1)
+    GPIO.output(6, 0)
+    
+    GPIO.output(23, 1)
+    GPIO.output(12, 1)
+    GPIO.output(17, 1)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 1)
+    GPIO.output(25, 1)
+    GPIO.output(4, 0)
+    GPIO.output(22, 1)
+    
+    for i in range(10 - detik):
+        waktu += 1
+        time.sleep(1)
+
+        waktu = 0
+
+def barat_kuning (detik = 0):
+    global waktu
+    global arah
+    
+    arah = 3
+    
+    GPIO.output(24, 0)
+    GPIO.output(16, 0)
+    GPIO.output(27, 1)
+    GPIO.output(6, 0)
+    
+    GPIO.output(23, 1)
+    GPIO.output(12, 1)
+    GPIO.output(17, 0)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 1)
+    GPIO.output(25, 1)
+    GPIO.output(4, 1)
+    GPIO.output(22, 1)
+    
+    for i in range(2):
+        time.sleep(1)
+
+        waktu = 0
+
+def utara_hijau(detik = 0):
+    global waktu
+    global arah
+    
+    arah = 4
+    
+    GPIO.output(24, 0)
+    GPIO.output(16, 0)
+    GPIO.output(27, 0)
+    GPIO.output(6, 1)
+    
+    GPIO.output(23, 1)
+    GPIO.output(12, 1)
+    GPIO.output(17, 1)
+    GPIO.output(5, 1)
+    
+    GPIO.output(18, 1)
+    GPIO.output(25, 1)
+    GPIO.output(4, 1)
+    GPIO.output(22, 0)
+    
+    for i in range(10 - detik):
+        waktu += 1
+        time.sleep(1)
+
+        waktu = 0
+
+def utara_kuning(detik = 0):
+	global waktu
+	global arah
+	
+	arah = 4
+	
+	GPIO.output(24, 0)
+	GPIO.output(16, 0)
+	GPIO.output(27, 0)
+	GPIO.output(6, 1)
+    
+	GPIO.output(23, 1)
+	GPIO.output(12, 1)
+	GPIO.output(17, 1)
+	GPIO.output(5, 0)
+    
+	GPIO.output(18, 1)
+	GPIO.output(25, 1)
+	GPIO.output(4, 1)
+	GPIO.output(22, 1)
+    
+	for i in range(2):
+		time.sleep(1)
+
+		waktu = 0
+
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -25,6 +270,12 @@ def index():
         print("someone access the raspberry in GET method!!")
         return render_template("dashboard.html")
         # return "hello"
+        
+@app.route('/interrupt', methods=["GET"])
+def keyboard_interrupt():
+    if request.method == 'GET':
+        thread.interrupt_main()
+        return 'Interrupt!'
 
 @app.route('/api', methods=['POST'])
 def api():
@@ -143,7 +394,31 @@ def convert_angle(degr):
         direction = 3
 
     return direction
+    
+def main_loop():
+    try:
+        while True :
+            print("main loop...")
+            selatan_hijau()
+            selatan_kuning()
+            
+            timur_hijau()
+            timur_kuning()
+            
+            barat_hijau()
+            barat_kuning()
+            
+            utara_hijau()
+            utara_kuning()
+
+    except KeyboardInterrupt:
+        #input_kondisi()
+        print("Interrupt!")
+        main_loop()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
     # socketio.run(app)
+    
+    init_kondisi()
+    main_loop()
