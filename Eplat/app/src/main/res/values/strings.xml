@@ -3,4 +3,6 @@
     <string name="title_activity_map">Select Location</string>
     <string name="title_activity_launcher">LauncherActivity</string>
     <string name="title_activity_eplat_client">EPlatClient</string>
+    <string name="title_activity_manual_simulation">Manual Simulation</string>
+    <string name="title_activity_manual_map">ManualMapActivity</string>
 </resources>

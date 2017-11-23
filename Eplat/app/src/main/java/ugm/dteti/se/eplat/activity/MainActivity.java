@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -28,14 +31,15 @@ import ugm.dteti.se.eplat.model.SnappedPoint;
 import ugm.dteti.se.eplat.rest.ApiClient;
 import ugm.dteti.se.eplat.rest.ApiInterface;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText editAdress;
     EditText editDeviceId;
     EditText editDelay;
+    Spinner  spinnerVehicleType;
 
     String deviceId, lat, lon, serverAddress;
-    private int delay;
+    private int delay, vehicleType;
     static final int PICK_LOCATION_REQUEST = 1;  // The request code
 
     ApiInterface apiService;
@@ -67,6 +71,13 @@ public class MainActivity extends AppCompatActivity{
         serverAddress = "http://" + editAdress.getText().toString() + ":5000";
         lat = "-7.797068";
         lon = "110.370529";
+
+        spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleId);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.vehicle_type, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerVehicleType.setAdapter(adapter);
+        spinnerVehicleType.setOnItemSelectedListener(this);
 
         Button btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +123,9 @@ public class MainActivity extends AppCompatActivity{
             // prepare data
             SnappedPoint sp = snappedPoints.get(0);
             snappedPoints.remove(0);
-            Log.d("Snapped Ppoints size", Integer.toString(snappedPoints.size()));
+            Log.d("Snapped Points size", Integer.toString(snappedPoints.size()));
 
-            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId,
+            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId, vehicleType,
                     sp.getLoc().getLatitude(), sp.getLoc().getLongitude(), "north"));
 
             call.enqueue(new Callback<ResponseBody>() {
@@ -132,7 +143,7 @@ public class MainActivity extends AppCompatActivity{
             sendLoop();
         } else {
             // send exit message
-            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId,
+            Call<ResponseBody> call = apiService.sendEplatData(new EplatData(deviceId, vehicleType,
                     0d, 0d, "north"));
 
             call.enqueue(new Callback<ResponseBody>() {
@@ -168,5 +179,16 @@ public class MainActivity extends AppCompatActivity{
                 snappedPoints = gson.fromJson(sp, type);
             }
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.d("item click", Integer.toString(i));
+        vehicleType = i;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

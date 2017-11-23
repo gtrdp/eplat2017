@@ -8,15 +8,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class EplatData {
 
-    public EplatData(String deviceId, Double lat, Double lon, String direction) {
+    public EplatData(String deviceId, Integer vType, Double lat, Double lon, String direction) {
         this.deviceId = deviceId;
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
+        this.vehicleType = vType;
     }
 
     @SerializedName("device_id")
     private String deviceId;
+    @SerializedName("vehicle_type")
+    private Integer vehicleType;
     @SerializedName("lat")
     private Double lat;
     @SerializedName("lon")
@@ -54,5 +57,13 @@ public class EplatData {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public Integer getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(Integer vehicleType) {
+        this.vehicleType = vehicleType;
     }
 }

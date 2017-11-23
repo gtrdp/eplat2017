@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vehicle_type">
+        <item>Pemadam Kebakaran</item>
+        <item>Mobil Ambulan</item>
+        <item>Kendaraan Pertolongan Kecelakaan</item>
+        <item>Kendaraan Pimpinan Lembaga</item>
+    </string-array>
+</resources>

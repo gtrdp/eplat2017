@@ -38,6 +38,13 @@
             android:layout_height="wrap_content"
             android:text="Start Simulation Mode"
             android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/btnManualSimulate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Manual Simulation Mode"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <!--<android.support.design.widget.FloatingActionButton-->

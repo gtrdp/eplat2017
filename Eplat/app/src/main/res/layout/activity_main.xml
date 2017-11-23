@@ -41,15 +41,25 @@
                     android:id="@+id/txtDeviceId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Device Id" />
+                    android:text="Vehicle ID" />
 
                 <EditText
                     android:id="@+id/edtDeviceId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:text="12345" />
+
+                <TextView
+                    android:id="@+id/txtDeviceType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VehicleType" />
+
+                <Spinner
+                    android:id="@+id/spinnerVehicleId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textView4"

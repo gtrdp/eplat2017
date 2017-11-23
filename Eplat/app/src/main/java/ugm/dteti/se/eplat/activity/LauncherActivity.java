@@ -38,6 +38,16 @@ public class LauncherActivity extends AppCompatActivity {
             }
         });
 
+        // eplat manual simulation button
+        Button manualSimulationButton = (Button) findViewById(R.id.btnManualSimulate);
+        manualSimulationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LauncherActivity.this, ManualSimulation.class);
+                startActivity(i);
+            }
+        });
+
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
