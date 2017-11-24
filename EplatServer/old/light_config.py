@@ -1,3 +1,7 @@
+import RPi.GPIO as GPIO
+import time
+import thread
+
 def init_kondisi():
     #Kondisi output
     GPIO.setwarnings(False)
@@ -20,10 +24,7 @@ def init_kondisi():
     GPIO.setup(22, GPIO.OUT)
 
 def timur_hijau (detik = 0):
-    global waktu
-    global arah
-
-    arah = 2
+    waktu = 0
 
     GPIO.output(24, 1)
     GPIO.output(16, 0)
@@ -44,14 +45,7 @@ def timur_hijau (detik = 0):
         waktu += 1
         time.sleep(1)
 
-        waktu = 0
-
 def timur_kuning (detik = 0):
-    global waktu
-    global arah
-
-    arah = 2
-
     GPIO.output(24, 1)
     GPIO.output(16, 0)
     GPIO.output(27, 0)
@@ -70,13 +64,8 @@ def timur_kuning (detik = 0):
     for i in range(2):
         time.sleep(1)
 
-        waktu = 0
-
 def selatan_hijau (detik = 0):
-    global waktu
-    global arah
-
-    arah = 1
+    waktu = 0
 
     GPIO.output(24, 0)
     GPIO.output(16, 1)
@@ -97,14 +86,7 @@ def selatan_hijau (detik = 0):
         waktu += 1
         time.sleep(1)
 
-        waktu = 0
-
 def selatan_kuning (detik = 0):
-	global waktu
-	global arah
-
-	arah = 1
-
 	GPIO.output(24, 0)
 	GPIO.output(16, 1)
 	GPIO.output(27, 0)
@@ -123,13 +105,8 @@ def selatan_kuning (detik = 0):
 	for i in range(2):
 		time.sleep(1)
 
-		waktu = 0
-
 def barat_hijau (detik = 0):
-    global waktu
-    global arah
-
-    arah = 3
+    waktu = 0
 
     GPIO.output(24, 0)
     GPIO.output(16, 0)
@@ -150,14 +127,7 @@ def barat_hijau (detik = 0):
         waktu += 1
         time.sleep(1)
 
-        waktu = 0
-
 def barat_kuning (detik = 0):
-    global waktu
-    global arah
-
-    arah = 3
-
     GPIO.output(24, 0)
     GPIO.output(16, 0)
     GPIO.output(27, 1)
@@ -176,13 +146,8 @@ def barat_kuning (detik = 0):
     for i in range(2):
         time.sleep(1)
 
-        waktu = 0
-
 def utara_hijau(detik = 0):
-    global waktu
-    global arah
-
-    arah = 4
+    waktu = 0
 
     GPIO.output(24, 0)
     GPIO.output(16, 0)
@@ -203,14 +168,7 @@ def utara_hijau(detik = 0):
         waktu += 1
         time.sleep(1)
 
-        waktu = 0
-
 def utara_kuning(detik = 0):
-	global waktu
-	global arah
-
-	arah = 4
-
 	GPIO.output(24, 0)
 	GPIO.output(16, 0)
 	GPIO.output(27, 0)
@@ -228,5 +186,3 @@ def utara_kuning(detik = 0):
 
 	for i in range(2):
 		time.sleep(1)
-
-		waktu = 0
