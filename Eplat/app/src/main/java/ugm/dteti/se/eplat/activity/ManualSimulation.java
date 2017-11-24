@@ -30,8 +30,6 @@ public class ManualSimulation extends AppCompatActivity implements AdapterView.O
         editAdress = (EditText) findViewById(R.id.editServerAddress);
         editDeviceId = (EditText) findViewById(R.id.editDevID);
 
-        deviceId = editDeviceId.getText().toString();
-        serverAddress = "http://" + editAdress.getText().toString() + ":5000";
         lat = "-7.797068";
         lon = "110.370529";
 
@@ -47,6 +45,10 @@ public class ManualSimulation extends AppCompatActivity implements AdapterView.O
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // get the parameters
+                deviceId = editDeviceId.getText().toString();
+                serverAddress = "http://" + editAdress.getText().toString() + ":5000";
+
                 Intent i = new Intent(ManualSimulation.this, ManualMapActivity.class);
                 i.putExtra("vehicleID", deviceId);
                 i.putExtra("vehicleType", vehicleType);
