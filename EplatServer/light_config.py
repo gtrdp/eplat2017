@@ -24,8 +24,6 @@ def init_kondisi():
     GPIO.setup(22, GPIO.OUT)
 
 def timur_hijau (detik = 0):
-    waktu = 0
-
     GPIO.output(24, 1)
     GPIO.output(16, 0)
     GPIO.output(27, 0)
@@ -40,10 +38,6 @@ def timur_hijau (detik = 0):
     GPIO.output(25, 1)
     GPIO.output(4, 1)
     GPIO.output(22, 1)
-
-    for i in range(10 - detik):
-        waktu += 1
-        time.sleep(1)
 
 def timur_kuning (detik = 0):
     GPIO.output(24, 1)
@@ -61,12 +55,7 @@ def timur_kuning (detik = 0):
     GPIO.output(4, 1)
     GPIO.output(22, 1)
 
-    for i in range(2):
-        time.sleep(1)
-
 def selatan_hijau (detik = 0):
-    waktu = 0
-
     GPIO.output(24, 0)
     GPIO.output(16, 1)
     GPIO.output(27, 0)
@@ -81,10 +70,6 @@ def selatan_hijau (detik = 0):
     GPIO.output(25, 0)
     GPIO.output(4, 1)
     GPIO.output(22, 1)
-
-    for i in range(10 - detik):
-        waktu += 1
-        time.sleep(1)
 
 def selatan_kuning (detik = 0):
 	GPIO.output(24, 0)
@@ -102,12 +87,7 @@ def selatan_kuning (detik = 0):
 	GPIO.output(4, 1)
 	GPIO.output(22, 1)
 
-	for i in range(2):
-		time.sleep(1)
-
 def barat_hijau (detik = 0):
-    waktu = 0
-
     GPIO.output(24, 0)
     GPIO.output(16, 0)
     GPIO.output(27, 1)
@@ -122,10 +102,6 @@ def barat_hijau (detik = 0):
     GPIO.output(25, 1)
     GPIO.output(4, 0)
     GPIO.output(22, 1)
-
-    for i in range(10 - detik):
-        waktu += 1
-        time.sleep(1)
 
 def barat_kuning (detik = 0):
     GPIO.output(24, 0)
@@ -143,12 +119,7 @@ def barat_kuning (detik = 0):
     GPIO.output(4, 1)
     GPIO.output(22, 1)
 
-    for i in range(2):
-        time.sleep(1)
-
 def utara_hijau(detik = 0):
-    waktu = 0
-
     GPIO.output(24, 0)
     GPIO.output(16, 0)
     GPIO.output(27, 0)
@@ -163,10 +134,6 @@ def utara_hijau(detik = 0):
     GPIO.output(25, 1)
     GPIO.output(4, 1)
     GPIO.output(22, 0)
-
-    for i in range(10 - detik):
-        waktu += 1
-        time.sleep(1)
 
 def utara_kuning(detik = 0):
 	GPIO.output(24, 0)
@@ -183,6 +150,3 @@ def utara_kuning(detik = 0):
 	GPIO.output(25, 1)
 	GPIO.output(4, 1)
 	GPIO.output(22, 1)
-
-	for i in range(2):
-		time.sleep(1)

@@ -14,6 +14,9 @@ import math
 
 import light_config
 
+import psutil
+import subprocess
+
 app = Flask(__name__)
 # socketio = SocketIO(app)
 # set the reporting error only
@@ -36,17 +39,9 @@ def index():
         return render_template("dashboard.html")
         # return "hello"
 
-@app.route('/interrupt', methods=["GET"])
-def keyboard_interrupt():
-    if request.method == 'GET':
-        thread.interrupt_main()
-        return 'Interrupt!'
-
 @app.route('/api', methods=['POST'])
 def api():
     if request.method == 'POST':
-        # thread.interrupt_main()
-
         # define if the vehicle is approaching or leaving ======================
         # which side does the vehicle come from ================================
         print(request.data)
@@ -101,6 +96,7 @@ def api():
         # queue checking, check if it is a new vehicle or not
         if vehicle['device_id'] not in antrian[vehicle['vehicle_type']]:
             print("New vehicle!\n")
+            kill_process()
             antrian[vehicle['vehicle_type']][vehicle['device_id']] = direction
 
         # check vehicle priority if it is higher or not
@@ -143,11 +139,6 @@ def get_data():
         # read previous data
         with open('data.json') as data_file:
             return json.dumps(json.load(data_file))
-
-# @socketio.on('my event')
-# def handle_my_custom_event(json):
-#     print('received json: ' + str(json))
-#     emit('update', json)math.
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     earth_radius = 6000 # Radius of earth in KM
@@ -195,133 +186,6 @@ def convert_angle(degr):
 
     return direction
 
-def input_kondisi():
-    global arah
-    global waktu
-    global antrian_a
-    global antrian_b
-    global antrian_c
-    global antrian_d
-
-    try:
-
-	# baca input interrupt
-        print("Interrupt!!!")
-        x=int(input("Arah Datang Kendaraan: "))
-        y=raw_input("Id Kendaraan: ")
-
-        # masukkan ke antrian
-        if (y == 'a'):
-            antrian_a.append(x)
-        if (y == 'b'):
-            antrian_b.append(x)
-        if (y == 'c'):
-            antrian_c.append(x)
-        if (y == 'd'):
-            antrian_d.append(x)
-        waktu = 0
-
-        # baca antrian
-        while (len(antrian_a) > 0):
-            m = antrian_a[0]
-
-            if m ==1 :
-                selatan_hijau(waktu)
-            if m ==2 :
-                timur_hijau(waktu)
-            if m ==3 :
-                barat_hijau(waktu)
-            if m ==4 :
-                utara_hijau(waktu)
-
-            m = antrian_a.pop(0) # ambil antrian paling depan
-
-            if m ==1 :
-                selatan_kuning(waktu)
-            if m ==2 :
-                timur_kuning(waktu)
-            if m ==3 :
-                barat_kuning(waktu)
-            if m ==4 :
-                utara_kuning(waktu)
-
-
-        while (len(antrian_b) > 0):
-            m = antrian_b[0]
-
-            if m ==1 :
-                selatan_hijau(waktu)
-            if m ==2 :
-                timur_hijau(waktu)
-            if m ==3 :
-                barat_hijau(waktu)
-            if m ==4 :
-                utara_hijau(waktu)
-
-            m = antrian_b.pop(0) # ambil antrian paling depan
-
-            if m ==1 :
-                selatan_kuning(waktu)
-            if m ==2 :
-                timur_kuning(waktu)
-            if m ==3 :
-                barat_kuning(waktu)
-            if m ==4 :
-                utara_kuning(waktu)
-
-        while (len(antrian_c) > 0):
-            m = antrian_c[0]
-
-            if m ==1 :
-                selatan_hijau(waktu)
-            if m ==2 :
-                timur_hijau(waktu)
-            if m ==3 :
-                barat_hijau(waktu)
-            if m ==4 :
-                utara_hijau(waktu)
-
-            m = antrian_c.pop(0) # ambil antrian paling depan
-
-            if m ==1 :
-                selatan_kuning(waktu)
-            if m ==2 :
-                timur_kuning(waktu)
-            if m ==3 :
-                barat_kuning(waktu)
-            if m ==4 :
-                utara_kuning(waktu)
-
-        while (len(antrian_d) > 0):
-            m = antrian_d[0]
-
-            if m ==1 :
-                selatan_hijau(waktu)
-            if m ==2 :
-                timur_hijau(waktu)
-            if m ==3 :
-                barat_hijau(waktu)
-            if m ==4 :
-                utara_hijau(waktu)
-
-            m = antrian_d.pop(0) # ambil antrian paling depan
-
-            if m ==1 :
-                selatan_kuning(waktu)
-            if m ==2 :
-                timur_kuning(waktu)
-            if m ==3 :
-                barat_kuning(waktu)
-            if m ==4 :
-                utara_kuning(waktu)
-
-
-        # kembali ke state awal
-        main_loop()
-
-    except KeyboardInterrupt:
-        input_kondisi()
-
 def turn_on_lights(jalur = 0):
     if jalur == 0:
         # north
@@ -336,29 +200,44 @@ def turn_on_lights(jalur = 0):
         # west
         light_config.barat_hijau()
 
+def kill_process():
+    # #kill traffic_controller.py process
+    # found = False
+    # while True:
+        # first trial of killing
+    for process in psutil.process_iter():
+        if process.cmdline() == ['python', 'traffic_controller.py']:
+            print('Process found. Terminating it.')
+            found = True
+            process.terminate()
+            break
+
+    for process in psutil.process_iter():
+        if process.cmdline() == ['python', 'traffic_controller.py']:
+            print('Process found. Terminating it.')
+            found = True
+            process.terminate()
+            break
+    
+        #
+        # # checking if killing works
+        # for process in psutil.process_iter():
+        #     if process.cmdline() == ['python', 'traffic_controller.py']:
+        #         print('Process still found. Terminating it.')
+        #         found = False
+        #         process.terminate()
+        #         break
+        #
+        # if found == True:
+        #     break
+
 def main_loop(light = 0):
-    try:
-        while True :
-            print("main loop...")
-            light_config.selatan_hijau()
-            light_config.selatan_kuning()
-
-            light_config.timur_hijau()
-            light_config.timur_kuning()
-
-            light_config.barat_hijau()
-            light_config.barat_kuning()
-
-            light_config.utara_hijau()
-            light_config.utara_kuning()
-
-    except KeyboardInterrupt:
-        #input_kondisi()
-        print("Main loop Interrupt!\n\n")
-        # main_loop()
+    # execute traffic_controller.py
+    print('Starting traffic controller daemon.')
+    subprocess.Popen("python traffic_controller.py", shell=True, stdout=subprocess.PIPE)
 
 if __name__ == '__main__':
     light_config.init_kondisi()
-    app.run(host='0.0.0.0')
-    # socketio.run(app)
     main_loop()
+
+    app.run(host='0.0.0.0')
